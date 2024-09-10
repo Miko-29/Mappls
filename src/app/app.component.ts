@@ -11,5 +11,3 @@ import { RouterOutlet, RouterLink,RouterLinkActive } from '@angular/router';
 export class AppComponent {
   title = 'mappls_assignment';
 }
-
-// 23.35496, 85.3002

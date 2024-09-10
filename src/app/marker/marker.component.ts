@@ -47,9 +47,16 @@ export class MarkerComponent {
             position: { lat: 23.317725, lng: 85.323597 },
             // width: 25,
             // height: 40,
-            popupHtml: 'Birsa Munda International Airport', 
+            popupHtml: "<style>::-webkit-scrollbar {width: 10px;} </style><div style=\"max-height:150px;min-width:200px;overflow-y: scroll;\">" +
+            "<img style=\"width: 200px;height: 100px;\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Panorama_of_Birsa_Munda_Airport.jpg/230px-Panorama_of_Birsa_Munda_Airport.jpg\">"+
+            "<p>Birsa Munda International Airport</p>" +
+            "<a href=\"https://www.mappls.com\">Mappls Maps</a></div>",
+            popupOptions:
+            {
+              openPopup: true,
+              autoClose: true,
+            }
           });
-
           // console.log('marker');
         });
       })

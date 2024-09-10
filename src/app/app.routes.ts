@@ -3,6 +3,7 @@ import { MarkerComponent } from './marker/marker.component';
 import { AirportsComponent } from './airports/airports.component';
 import { PolylineComponent } from './polyline/polyline.component';
 import { PolygonComponent } from './polygon/polygon.component';
+import { SearchComponent } from './search/search.component';
 
 export const routes: Routes = [
     {path:'',redirectTo:'marker',pathMatch:'full'},
@@ -10,4 +11,5 @@ export const routes: Routes = [
     {path:'airports',component:AirportsComponent},
     {path:'polyline',component:PolylineComponent},
     {path:'polygon',component:PolygonComponent},
+    {path:'search',component:SearchComponent},
 ];

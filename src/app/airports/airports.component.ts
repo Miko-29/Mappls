@@ -320,7 +320,7 @@ export class AirportsComponent {
           {
             id: 'map',
             properties: {
-              center: [20.5937,78.9629],
+              // center: [20.5937,78.9629],
               zoomControl: true,
               location: true,
               zoom:4
@@ -341,7 +341,6 @@ export class AirportsComponent {
             clusters: true,
             fitbounds: true,
           });
-
           // console.log('marker');
         });
       })

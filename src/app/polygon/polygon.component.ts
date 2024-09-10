@@ -3099,7 +3099,7 @@ export class PolygonComponent {
   //     }
   //   ]
   // };
- mapObject: any;
+  mapObject: any;
   mapplsClassObject: any = new mappls()
   mapplsPluginObject: any = new mappls_plugin()
   polygonObject: any;
@@ -3123,7 +3123,7 @@ export class PolygonComponent {
               center: [23.3441, 85.3096],
               zoomControl: true,
               location: true,
-              zoom: 6
+              zoom: 6.5
             },
           },
           // (data:any)=>{ this.mapObject = data ;  }
@@ -3136,7 +3136,7 @@ export class PolygonComponent {
             // paths: this.polygonData,
             paths: [
               {
-                "lng":83.49816893219469, "lat": 24.52705948102653
+                "lng": 83.49816893219469, "lat": 24.52705948102653
               },
               {
                 "lng": 83.54244234437463, "lat": 24.5261803947958
@@ -5437,7 +5437,12 @@ export class PolygonComponent {
                 "lng": 83.49816893219469, "lat": 24.52705948102653
               }
 
-            ]
+            ],
+            fillColor: "brown",
+            fillOpacity: 0.5,
+            strokeColor: "brown",
+            strokeOpacity: 1,
+
           });
       })
   }
