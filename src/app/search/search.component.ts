@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { mappls, mappls_plugin } from 'mappls-web-maps';
+import '../constant.ts'
 
 @Component({
   selector: 'app-search',
@@ -15,6 +16,7 @@ export class SearchComponent {
   marker: any;
   callback: any;
   data: any;
+  token = token;
 
   ngOnInit() {
     const loadObject = {
@@ -25,7 +27,7 @@ export class SearchComponent {
     };
 
     this.mapplsClassObject.initialize(
-      '3977bfeea17933aaecdd1c90c171b587', loadObject,
+      this.token, loadObject,
       () => {
         var optional_config = {
           location: [28.61, 77.23],
@@ -50,7 +52,7 @@ export class SearchComponent {
         )
 
       });
-    // this.mapplsClassObject.initialize("3977bfeea17933aaecdd1c90c171b587",loadObject,
+    // this.mapplsClassObject.initialize("token",loadObject,
     //   () => {
     //     var optional_config = {
     //       location: [28.61, 77.23],

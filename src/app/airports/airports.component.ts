@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { mappls, mappls_plugin } from 'mappls-web-maps';
+import '../constant.ts'
 
 @Component({
   selector: 'app-airports',
@@ -13,6 +14,7 @@ export class AirportsComponent {
   mapplsClassObject: any = new mappls()
   mapplsPluginObject: any = new mappls_plugin()
   markerObject: any;
+  token = token;
   airportsGeojson = {
     "type": "FeatureCollection",
     "features": [
@@ -314,7 +316,7 @@ export class AirportsComponent {
     };
 
     this.mapplsClassObject.initialize(
-      '3977bfeea17933aaecdd1c90c171b587', loadObject,
+      this.token, loadObject,
       () => {
         this.mapObject = this.mapplsClassObject.Map(
           {
@@ -323,7 +325,7 @@ export class AirportsComponent {
               // center: [20.5937,78.9629],
               zoomControl: true,
               location: true,
-              zoom:4
+              zoom: 4
             },
           },
           // (data:any)=>{ this.mapObject = data ;  }

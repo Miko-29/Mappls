@@ -3,13 +3,13 @@ import { mappls, mappls_plugin } from 'mappls-web-maps';
 import '../constant.ts'
 
 @Component({
-  selector: 'app-marker',
+  selector: 'app-custom-marker',
   standalone: true,
   imports: [],
-  templateUrl: './marker.component.html',
-  styleUrl: './marker.component.css'
+  templateUrl: './custom-marker.component.html',
+  styleUrl: './custom-marker.component.css'
 })
-export class MarkerComponent {
+export class CustomMarkerComponent {
   mapObject: any;
   mapplsClassObject: any = new mappls()
   mapplsPluginObject: any = new mappls_plugin()
@@ -48,7 +48,16 @@ export class MarkerComponent {
             position: { lat: 23.317725, lng: 85.323597 },
             // width: 25,
             // height: 40,
-            popupHtml: "<p>Birsa Munda International Airport</p>"
+            icon: 'https://apis.mapmyindia.com/map_v3/2.png',
+            popupHtml: "<style>::-webkit-scrollbar {width: 10px;} </style><div style=\"max-height:150px;min-width:200px;overflow-y: scroll;\">" +
+              "<img style=\"width: 200px;height: 100px;\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Panorama_of_Birsa_Munda_Airport.jpg/230px-Panorama_of_Birsa_Munda_Airport.jpg\">" +
+              "<p>Birsa Munda International Airport</p>" +
+              "<a href=\"https://www.mappls.com\">Mappls Maps</a></div>",
+            popupOptions:
+            {
+              openPopup: true,
+              autoClose: true,
+            }
           });
           // console.log('marker');
         });
