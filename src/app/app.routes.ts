@@ -5,6 +5,7 @@ import { PolylineComponent } from './polyline/polyline.component';
 import { PolygonComponent } from './polygon/polygon.component';
 import { SearchComponent } from './search/search.component';
 import { CustomMarkerComponent } from './custom-marker/custom-marker.component';
+import { DistanceComponent } from './distance/distance.component';
 
 export const routes: Routes = [
     {path:'',redirectTo:'marker',pathMatch:'full'},
@@ -14,4 +15,5 @@ export const routes: Routes = [
     {path:'polygon',component:PolygonComponent},
     {path:'search',component:SearchComponent},
     {path:'custom-marker',component:CustomMarkerComponent},  
+    {path:'distance',component:DistanceComponent},  
 ];
