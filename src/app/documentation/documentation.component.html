@@ -1,0 +1,619 @@
+<script>
+  function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+            if (section) {
+                window.scrollTo({
+                    top: section.offsetTop, 
+                    behavior: 'smooth' // Ensures smooth scrolling
+                });
+            }
+  }
+</script>
+<div id="map">
+  <ul>
+    <li><a href="javascript:void(0)" onclick="scrolltosection('#section-1')">Section 1</a>
+      <ul>
+        <li><a href="javascript:void(0)" onclick="scrollToSection('#how-to-integrate-mappls-sdks')">How to integrate Mappls SDKs?</a></li>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-does-it-initialize-mappls-sdks')">How does it initialize Mappls SDKs?</a></li>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-to-show-a-popup-on-click-of-map-marker')">How to show a popup on click of Map Marker?</a>
+        </li>
+      </ul>
+    </li>
+    <li><a href="javascript:void(0)" onclick="scrolltosection('#section-2')">Section 2</a>
+      <ul>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-to-show-mappls-map')">How to show Mappls Map?</a></li>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-to-set-zoom-level-and-center-of-map')">How to set zoom level and center of Map?</a></li>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-to-plot-a-marker-on-mappls-map')">How to plot a marker on Mappls Map?</a></li>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#add-a-custom-marker-and-when-we-click-on-the-marker-then-display-an-infowindowpop-up')">Add a
+            custom marker and when we click on the marker then display an InfoWindow/pop-up.</a></li>
+        <li><a
+            href="javascript:void(0)" onclick="scrolltosection('#add-50-custom-markers-and-when-we-click-on-a-particular-marker-the-marker-should-be-highlighted')">Add
+            50 custom markers and when we click on a particular marker, the marker should be highlighted</a>
+        </li>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-to-plot-a-polyline-on-mappls-map')">How to plot a polyline on Mappls Map?</a></li>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-to-plot-a-polyline-with-custom-color-on-mappls-map')">How to plot a polyline with custom
+            color on Mappls Map?</a></li>
+      </ul>
+    </li>
+    <li><a href="javascript:void(0)" onclick="scrolltosection('#section-3')">Section 3</a>
+      <ul>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-to-get-human-readable-address-information-at-a-locationcoordinate')">How to get human
+            readable address information at a location/coordinate?</a></li>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-to-get-details-of-a-place-by-its-name')">How to get details of a place by its name?</a></li>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-to-get-road-distance-between-two-locations')">How to get road distance between two
+            locations?</a></li>
+        <li><a href="javascript:void(0)" onclick="scrolltosection('#how-to-get-nearby-places-from-a-location-of-some-specific-category')">How to get nearby places
+            from a location of some specific category?</a></li>
+      </ul>
+    </li>
+  </ul>
+  <h2 id="section-1-">Section 1:</h2>
+  <h3 id="how-to-integrate-mappls-sdks-">How to integrate Mappls SDKs?</h3>
+  <ul>
+    <li>Install mappls sdk
+      <pre><code>  npm  <span class="hljs-selector-tag">i</span>  mappls-web-maps
+</code></pre>
+    </li>
+  </ul>
+  <h3 id="how-does-it-initialize-mappls-sdks-">How does it initialize Mappls SDKs?</h3>
+  <ul>
+    <li>Import mappls package into the component where map needs to be rendered
+      <pre><code class="lang-typescript">  <span class="hljs-keyword">import</span>   &#123; mappls, mappls_plugin   &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'mappls-web-maps'</span>;
+</code></pre>
+    </li>
+    <li>
+      <p>Declare variables and call the initialize function to initialize the map</p>
+      <pre><code class="lang-typescript">  <span class="hljs-attribute">mapObject</span>: any;
+  <span class="hljs-attribute">mapplsClassObject</span>: any = new mappls()
+  <span class="hljs-attribute">mapplsPluginObject</span>: any = new mappls_plugin()
+
+<span class="coffeescript">  ngOnInit()   &#123;
+      const loadObject =   &#123;
+          map: <span class="hljs-literal">true</span>,
+          layer: <span class="hljs-string">'vector'</span>,
+          libraries: [<span class="hljs-string">'airspacelayers'</span>],
+        &#125;;
+      <span class="hljs-keyword">this</span>.mapplsClassObject.initialize(<span class="hljs-string">'&lt;token&gt;'</span>, loadObject,
+      <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+          <span class="hljs-keyword">this</span>.mapObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Map(
+            &#123;  &#123;   &#123;   &#125;  &#125;
+              id: <span class="hljs-string">'map'</span>,
+              properties:   &#123;
+                  center: [<span class="hljs-number">23.3441</span>, <span class="hljs-number">85.3096</span>],
+                  zoomControl: <span class="hljs-literal">true</span>,
+                  location: <span class="hljs-literal">true</span>,
+                &#125;,
+            &#125;,
+          )
+        &#125;)
+      &#125;</span>
+</code></pre>
+    </li>
+  </ul>
+  <h3 id="how-to-show-a-popup-on-click-of-map-marker-">How to show a popup on click of Map Marker?</h3>
+  <ul>
+    <li>After intializing the map, add a marker when map has been loaded.Give the coordinates where you want to place
+      marker as <code>position</code>. Define the popup&#39;s html code as the <code>popupHtml</code>
+      <pre><code class="lang-typescript">  markerObject: any;    
+  <span class="hljs-keyword">this</span>.mapplsClassObject.initialize(<span class="hljs-string">'&lt;token&gt;'</span>, loadObject,
+  <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>   &#123;
+      <span class="hljs-keyword">this</span>.mapObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Map(
+        &#123;
+          id: <span class="hljs-string">'map'</span>,
+          properties:   &#123;
+              center: [<span class="hljs-number">23.3441</span>, <span class="hljs-number">85.3096</span>],
+              zoomControl: <span class="hljs-literal">true</span>,
+              location: <span class="hljs-literal">true</span>,
+            &#125;,
+        &#125;,
+      )
+      <span class="hljs-keyword">this</span>.mapObject.<span class="hljs-literal">on</span>(<span class="hljs-string">"load"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>   &#123;
+          <span class="hljs-keyword">this</span>.markerObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Marker(  &#123;
+              map: <span class="hljs-keyword">this</span>.mapObject,
+              position:   &#123; lat: <span class="hljs-number">23.317725</span>, lng: <span class="hljs-number">85.323597</span>   &#125;,
+              popupHtml: <span class="hljs-string">"&lt;p&gt;Birsa Munda International Airport&lt;/p&gt;"</span>
+            &#125;);
+        &#125;);
+    &#125;);
+</code></pre>
+    </li>
+    <li>Add a div with id &quot;map&quot; in the html template to render the map
+      <pre><code class="lang-html">  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">id</span>=<span class="hljs-string">"map"</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+    </li>
+  </ul>
+  <!-- <p><img src="../../assets/screenshots/marker_popup.png" alt="marker_popup"></p> -->
+  <p><img src="../../assets/screenshots/marker_popup.png" alt="marker_popup"></p>
+  <hr>
+  <h2 id="section-2-">Section 2:</h2>
+  <h3 id="how-to-show-mappls-map-">How to show Mappls Map?</h3>
+  <ul>
+    <li>Import mappls package into the component where map needs to be rendered
+      <pre><code class="lang-typescript">  <span class="hljs-keyword">import</span>   &#123; mappls, mappls_plugin   &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'mappls-web-maps'</span>;
+</code></pre>
+    </li>
+    <li>
+      <p>Declare variables and call the initialize function to initialize the map. Inside initialize function call Map
+        function passing json including the html id, properties, etc as parameter.</p>
+      <pre><code class="lang-typescript">  <span class="hljs-attribute">mapObject</span>: any;
+  <span class="hljs-attribute">mapplsClassObject</span>: any = new mappls()
+  <span class="hljs-attribute">mapplsPluginObject</span>: any = new mappls_plugin()
+
+<span class="coffeescript">  ngOnInit()   &#123;
+      const loadObject =   &#123;
+          map: <span class="hljs-literal">true</span>,
+          layer: <span class="hljs-string">'vector'</span>,
+          libraries: [<span class="hljs-string">'airspacelayers'</span>],
+        &#125;;
+      <span class="hljs-keyword">this</span>.mapplsClassObject.initialize(<span class="hljs-string">'&lt;token&gt;'</span>, loadObject,
+      <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>   &#123;
+          <span class="hljs-keyword">this</span>.mapObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Map(
+            &#123;
+              id: <span class="hljs-string">'map'</span>,
+              properties:   &#123;
+                  zoomControl: <span class="hljs-literal">true</span>,
+                  location: <span class="hljs-literal">true</span>,
+                &#125;,
+            &#125;,
+          )
+        &#125;)
+      &#125;</span>
+</code></pre>
+    </li>
+    <li>Add a div with id &quot;map&quot; in the html template to render the map
+      <pre><code class="lang-html">  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">id</span>=<span class="hljs-string">"map"</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+      <img src="../../assets/screenshots/map.png" alt="map">
+    </li>
+  </ul>
+  <h3 id="how-to-set-zoom-level-and-center-of-map-">How to set zoom level and center of Map?</h3>
+  <ul>
+    <li>
+      <p>Inside properties give the center coordinates as <code>center</code> and zoom level as <code>zoom</code>.</p>
+      <pre><code class="lang-typescript">  <span class="hljs-attribute">mapObject</span>: any;
+  <span class="hljs-attribute">mapplsClassObject</span>: any = new mappls()
+  <span class="hljs-attribute">mapplsPluginObject</span>: any = new mappls_plugin()
+
+<span class="coffeescript">  ngOnInit()   &#123;
+      const loadObject =   &#123;
+          map: <span class="hljs-literal">true</span>,
+          layer: <span class="hljs-string">'vector'</span>,
+          libraries: [<span class="hljs-string">'airspacelayers'</span>],
+        &#125;;
+      <span class="hljs-keyword">this</span>.mapplsClassObject.initialize(<span class="hljs-string">'&lt;token&gt;'</span>, loadObject,
+      <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>   &#123;
+          <span class="hljs-keyword">this</span>.mapObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Map(
+            &#123;
+              id: <span class="hljs-string">'map'</span>,
+              properties:   &#123;
+                  center: [<span class="hljs-number">23.3441</span>, <span class="hljs-number">85.3096</span>],
+                  zoomControl: <span class="hljs-literal">true</span>,
+                  location: <span class="hljs-literal">true</span>,
+                  zoom:
+                &#125;,
+            &#125;,
+          )
+        &#125;)
+      &#125;</span>
+</code></pre>
+      <p><img src="../../assets/screenshots/center_zoom.png" alt="center_zoom"></p>
+    </li>
+  </ul>
+  <h3 id="how-to-plot-a-marker-on-mappls-map-">How to plot a marker on Mappls Map?</h3>
+  <ul>
+    <li>Add a marker when map has been loaded by calling the <code>Marker</code> function. Give the coordinates where
+      you want to place marker as <code>position</code>.
+      <pre><code class="lang-typescript">  markerObject: any;    
+  <span class="hljs-keyword">this</span>.mapplsClassObject.initialize(<span class="hljs-string">'&lt;token&gt;'</span>, loadObject,
+  <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>   &#123;
+      <span class="hljs-keyword">this</span>.mapObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Map(
+        &#123;
+          id: <span class="hljs-string">'map'</span>,
+          properties:   &#123;
+              center: [<span class="hljs-number">23.3441</span>, <span class="hljs-number">85.3096</span>],
+              zoomControl: <span class="hljs-literal">true</span>,
+              location: <span class="hljs-literal">true</span>,
+            &#125;,
+        &#125;,
+      )
+      <span class="hljs-keyword">this</span>.mapObject.<span class="hljs-literal">on</span>(<span class="hljs-string">"load"</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>   &#123;
+          <span class="hljs-keyword">this</span>.markerObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Marker(  &#123;
+              map: <span class="hljs-keyword">this</span>.mapObject,
+              position:   &#123; lat: <span class="hljs-number">23.317725</span>, lng: <span class="hljs-number">85.323597</span>   &#125;,
+              popupHtml: <span class="hljs-string">"&lt;p&gt;Birsa Munda International Airport&lt;/p&gt;"</span>
+            &#125;);
+        &#125;);
+    &#125;);
+</code></pre>
+      <img src="../../assets/screenshots/marker.png" alt="marker">
+    </li>
+  </ul>
+  <h3 id="add-a-custom-marker-and-when-we-click-on-the-marker-then-display-an-infowindow-pop-up-">Add a custom marker
+    and
+    when we click on the marker then display an InfoWindow/pop-up.</h3>
+  <ul>
+    <li>Add a marker when map has been loaded. Give the coordinates where you want to place marker as
+      <code>position</code>.Give the path/url of marker icon as <code>icon</code> to set a custom marker. Define the
+      popup&#39;s html code as the <code>popupHtml</code>
+      <pre><code class="lang-typescript">  this.mapObject.on("load", () =&gt;   &#123;
+      this.markerObject = this.mapplsClassObject.Marker(  &#123;
+          map: this.mapObject,
+          icon:  'https://apis.mapmyindia.com/map_v3/2.png',
+          position:   &#123; lat: 23.317725, lng: 85.323597   &#125;,
+          popupHtml: "<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"><span class="hljs-selector-pseudo">::-webkit-scrollbar</span>   &#123;<span class="hljs-attribute">width</span>: <span class="hljs-number">10px</span>;  &#125; </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">max-height:150px</span>;<span class="hljs-attr">min-width:200px</span>;<span class="hljs-attr">overflow-y:</span> <span class="hljs-attr">scroll</span>;\"&gt;</span>" +
+          "<span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">style</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">width:</span> <span class="hljs-attr">200px</span>;<span class="hljs-attr">height:</span> <span class="hljs-attr">100px</span>;\" <span class="hljs-attr">src</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">https:</span>//<span class="hljs-attr">upload.wikimedia.org</span>/<span class="hljs-attr">wikipedia</span>/<span class="hljs-attr">commons</span>/<span class="hljs-attr">thumb</span>/<span class="hljs-attr">1</span>/<span class="hljs-attr">11</span>/<span class="hljs-attr">Panorama_of_Birsa_Munda_Airport.jpg</span>/<span class="hljs-attr">230px-Panorama_of_Birsa_Munda_Airport.jpg</span>\"&gt;</span>"+
+          "<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Birsa Munda International Airport<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>" +
+          "<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">https:</span>//<span class="hljs-attr">www.mappls.com</span>\"&gt;</span>Mappls Maps<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>",
+        &#125;);
+    &#125;);
+</code></pre>
+      <img src="../../assets/screenshots/custom_marker.png" alt="custom_marker">
+      <img src="../../assets/screenshots/custom_popup.png" alt="custom_popup">
+    </li>
+  </ul>
+  <h3 id="add-50-custom-markers-and-when-we-click-on-a-particular-marker-the-marker-should-be-highlighted">Add 50 custom
+    markers and when we click on a particular marker, the marker should be highlighted</h3>
+  <ul>
+    <li>Add a variable with geojson of the points to be plotted
+      <pre><code class="lang-typescript">    airportsGeojson =   &#123;
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"FeatureCollection"</span>,
+      <span class="hljs-string">"features"</span>: [
+          &#123;
+          <span class="hljs-string">"type"</span>: <span class="hljs-string">"Feature"</span>,
+          <span class="hljs-string">"geometry"</span>:   &#123;
+            <span class="hljs-string">"type"</span>: <span class="hljs-string">"Point"</span>,
+            <span class="hljs-string">"coordinates"</span>: [
+              <span class="hljs-number">8.4819569</span>,
+              <span class="hljs-number">76.9196331</span>
+            ]
+            &#125;,
+          <span class="hljs-string">"properties"</span>:   &#123;
+            <span class="hljs-string">"name"</span>: <span class="hljs-string">"Thiruvananthapuram International Airport"</span>,
+            <span class="hljs-string">"name_en"</span>: <span class="hljs-string">"Thiruvananthapuram International Airport"</span>,
+            <span class="hljs-string">"name_fr"</span>: null,
+                &#125;
+          &#125;
+      ]
+      &#125;;
+</code></pre>
+    </li>
+    <li>Add this variable as <code>position</code> of marker
+      <pre><code class="lang-typescript">  <span class="hljs-keyword">this</span>.mapObject.on(<span class="hljs-string">"load"</span>, () =&gt;   &#123;
+      <span class="hljs-keyword">this</span>.markerObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Marker(  &#123;
+          map: <span class="hljs-keyword">this</span>.mapObject,
+          position: <span class="hljs-keyword">this</span>.airportsGeojson,
+          width: <span class="hljs-number">6</span>,
+          height: <span class="hljs-number">8</span>,
+          icon: <span class="hljs-string">'https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-plane-512.png'</span>,
+          clusters: <span class="hljs-literal">true</span>,
+          fitbounds: <span class="hljs-literal">true</span>,
+        &#125;);
+       &#125;);
+</code></pre>
+      <img src="../../assets/screenshots/airports.png" alt="airports">
+      <img src="../../assets/screenshots/cluster.png" alt="cluster">
+    </li>
+  </ul>
+  <h3 id="how-to-plot-a-polyline-on-mappls-map-">How to plot a polyline on Mappls Map?</h3>
+  <ul>
+    <li>Declare a variable containing polyline data.
+      <pre><code class="lang-typescript">  polylineData =   &#123;
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"FeatureCollection"</span>,
+      <span class="hljs-string">"features"</span>: [
+            &#123;
+              <span class="hljs-string">"type"</span>: <span class="hljs-string">"Feature"</span>,
+              <span class="hljs-string">"geometry"</span>:   &#123;
+              <span class="hljs-string">"type"</span>: <span class="hljs-string">"LineString"</span>,
+              <span class="hljs-string">"coordinates"</span>: [
+                  [<span class="hljs-number">85.2000</span>, <span class="hljs-number">23.3441</span>],
+                  [<span class="hljs-number">85.323597</span>, <span class="hljs-number">23.317725</span>]
+                  ]
+                &#125;,
+          <span class="hljs-string">"properties"</span>:   &#123;
+              <span class="hljs-string">"name"</span>: <span class="hljs-string">"Ranchi Airport to Ranchi High Court"</span>
+            &#125;
+            &#125;
+      ]
+    &#125;;
+</code></pre>
+    </li>
+    <li>Add polyline using <code>Polyline</code> function and define polyline coordinates as <code>path</code>
+      <pre><code class="lang-typescript">  <span class="hljs-keyword">this</span>.polylineObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Polyline(
+        &#123;
+          map: <span class="hljs-keyword">this</span>.mapObject,
+          path: <span class="hljs-keyword">this</span>.polylineData,
+        &#125;
+  );
+</code></pre>
+      <img src="../../assets/screenshots/polyline.png" alt="polyline">
+    </li>
+  </ul>
+  <h3 id="how-to-plot-a-polyline-with-custom-color-on-mappls-map-">How to plot a polyline with custom color on Mappls
+    Map?
+  </h3>
+  <ul>
+    <li>Set color using <code>strokeColor</code>
+      <pre><code class="lang-typescript">  <span class="hljs-keyword">this</span>.polylineObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Polyline(
+        &#123;
+          map: <span class="hljs-keyword">this</span>.mapObject,
+          path: <span class="hljs-keyword">this</span>.polylineData,
+          strokeColor:  <span class="hljs-string">'green'</span>,
+        &#125;
+  );
+</code></pre>
+      <img src="../../assets/screenshots/polyline_color.png" alt="polyline_color">
+    </li>
+  </ul>
+  <h3 id="how-to-plot-a-polygon-on-mappls-map-">How to plot a polygon on Mappls Map?</h3>
+  <ul>
+    <li>Add polygon using <code>Polygon</code> function and define polygon coordinates as <code>paths</code>
+      <pre><code class="lang-typescript">  <span class="hljs-keyword">this</span>.polygonObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Polygon(
+        &#123;
+          map: <span class="hljs-keyword">this</span>.mapObject,
+          paths: [
+                &#123;
+              <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.49816893219469</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.52705948102653</span>
+                &#125;,
+                &#123;
+              <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.54244234437463</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.5261803947958</span>
+                &#125;,
+                &#123;
+              <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.60015868279078</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.513240765593967</span>
+                &#125;,
+                &#123;
+              <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.68245698049178</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.51558118890164</span>
+                &#125;,
+          ]
+        &#125;
+  );
+</code></pre>
+      <img src="../../assets/screenshots/polygon.png" alt="polygon">
+    </li>
+  </ul>
+  <h3 id="how-to-plot-a-polygon-with-custom-color-">How to plot a polygon with custom color?</h3>
+  <ul>
+    <li>Set fill color using <code>fillColor</code> and border color using <code>strokeColor</code>
+      <pre><code class="lang-typescript"><span class="hljs-keyword">this</span>.polygonObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Polygon(
+      &#123;
+        map: <span class="hljs-keyword">this</span>.mapObject,
+        paths: [
+              &#123;
+            <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.49816893219469</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.52705948102653</span>
+              &#125;,
+              &#123;
+            <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.54244234437463</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.5261803947958</span>
+              &#125;,
+              &#123;
+            <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.60015868279078</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.513240765593967</span>
+              &#125;,
+              &#123;
+            <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.68245698049178</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.51558118890164</span>
+              &#125;,
+        ],
+        fillColor: <span class="hljs-string">"brown"</span>,
+        strokeColor: <span class="hljs-string">"brown"</span>,
+      &#125;
+);
+</code></pre>
+    </li>
+  </ul>
+  <h3 id="how-to-plot-a-polygon-with-opacity-">How to plot a polygon with opacity?</h3>
+  <ul>
+    <li>Set fill opacity using <code>fillOpacity</code> and border opacity using <code>strokeOpacity</code>
+      <pre><code class="lang-typescript">this.polygonObject = this.mapplsClassObject.Polygon(
+      &#123;
+<span class="hljs-symbol">        map:</span> this.mapObject,
+<span class="hljs-symbol">        paths:</span> [
+              &#123;
+            <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.49816893219469</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.52705948102653</span>
+              &#125;,
+              &#123;
+            <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.54244234437463</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.5261803947958</span>
+              &#125;,
+              &#123;
+            <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.60015868279078</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.513240765593967</span>
+              &#125;,
+              &#123;
+            <span class="hljs-string">"lng"</span>: <span class="hljs-number">83.68245698049178</span>, <span class="hljs-string">"lat"</span>: <span class="hljs-number">24.51558118890164</span>
+              &#125;,
+        ],
+<span class="hljs-symbol">        fillColor:</span> <span class="hljs-string">"brown"</span>,
+<span class="hljs-symbol">        fillOpacity:</span> <span class="hljs-number">0.5</span>,
+<span class="hljs-symbol">        strokeColor:</span> <span class="hljs-string">"brown"</span>,
+<span class="hljs-symbol">        strokeOpacity:</span> <span class="hljs-number">1</span>,
+      &#125;
+);
+</code></pre>
+      <img src="../../assets/screenshots/polygon_color.png" alt="polygon_color">
+    </li>
+  </ul>
+  <h3 id="how-to-show-a-custom-popup-on-click-of-map-marker-">How to show a custom popup on click of Map Marker?</h3>
+  <ul>
+    <li>Add a marker when map has been loaded. Give the coordinates where you want to place marker as
+      <code>position</code>.Give the path/url of marker icon as <code>icon</code> to set a custom marker. Define the
+      popup&#39;s html code as the <code>popupHtml</code>
+      <pre><code class="lang-typescript">  this.mapObject.on("load", () =&gt;   &#123;
+      this.markerObject = this.mapplsClassObject.Marker(  &#123;
+          map: this.mapObject,
+          icon:  'https://apis.mapmyindia.com/map_v3/2.png',
+          position:   &#123; lat: 23.317725, lng: 85.323597   &#125;,
+          popupHtml: "<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"><span class="hljs-selector-pseudo">::-webkit-scrollbar</span>   &#123;<span class="hljs-attribute">width</span>: <span class="hljs-number">10px</span>;  &#125; </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">max-height:150px</span>;<span class="hljs-attr">min-width:200px</span>;<span class="hljs-attr">overflow-y:</span> <span class="hljs-attr">scroll</span>;\"&gt;</span>" +
+          "<span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">style</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">width:</span> <span class="hljs-attr">200px</span>;<span class="hljs-attr">height:</span> <span class="hljs-attr">100px</span>;\" <span class="hljs-attr">src</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">https:</span>//<span class="hljs-attr">upload.wikimedia.org</span>/<span class="hljs-attr">wikipedia</span>/<span class="hljs-attr">commons</span>/<span class="hljs-attr">thumb</span>/<span class="hljs-attr">1</span>/<span class="hljs-attr">11</span>/<span class="hljs-attr">Panorama_of_Birsa_Munda_Airport.jpg</span>/<span class="hljs-attr">230px-Panorama_of_Birsa_Munda_Airport.jpg</span>\"&gt;</span>"+
+          "<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Birsa Munda International Airport<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>" +
+          "<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">\</span>"<span class="hljs-attr">https:</span>//<span class="hljs-attr">www.mappls.com</span>\"&gt;</span>Mappls Maps<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>",
+          popupOptions:
+            &#123;
+              openPopup: true,
+              autoClose: true,
+            &#125;
+        &#125;);
+    &#125;);
+</code></pre>
+      <img src="../../assets/screenshots/custom_popup.png" alt="custom_popup">
+    </li>
+  </ul>
+  <hr>
+  <h2 id="section-3-">Section 3:</h2>
+  <h3 id="how-to-get-human-readable-address-information-at-a-location-coordinate-">How to get human readable address
+    information at a location/coordinate?</h3>
+  <ul>
+    <li>
+      <p>Before using the Plugin in the your solution, please ensure that the related access is enabled in the Mappls
+        Console, in the same project you set up for the Maps SDK.
+        Copy and paste the generated access token generated using Token Generation API.
+        The access token is a valid by default for 24 hours from the time of generation.</p>
+    </li>
+    <li>
+      <p>Add an input tag in the html template. Define an id for it to provide it to the search plugin as parameter.
+      </p>
+      <pre><code class="lang-html">  &lt;input type=<span class="hljs-string">"text"</span> 
+  <span class="hljs-built_in">id</span>=<span class="hljs-string">"auto"</span> 
+  <span class="hljs-built_in">name</span>=<span class="hljs-string">"auto"</span> 
+  placeholder=<span class="hljs-string">"Search places or eLoc's..."</span> 
+  required=<span class="hljs-string">""</span> 
+  spellcheck=<span class="hljs-string">"false"</span> /&gt;
+</code></pre>
+    </li>
+    <li>
+      <p>Add <code>search</code> plugin to search about a location. The address of the location is provided as
+        <code>data[0].placeName</code> and <code>data[0].placeAddress</code>.
+      </p>
+      <pre><code class="lang-typescript">  <span class="hljs-attribute">callback</span>: any;
+  <span class="hljs-attribute">data</span>: any;
+
+<span class="kotlin">  <span class="hljs-keyword">this</span>.mapplsClassObject.initialize(
+    <span class="hljs-string">'&lt;access-token&gt;'</span>,
+    loadObject,
+    () =&gt;   &#123;
+      <span class="hljs-keyword">this</span>.mapObject = <span class="hljs-keyword">this</span>.mapplsClassObject.Map(
+          &#123;
+          id: <span class="hljs-string">'map'</span>,
+          properties:   &#123;
+            zoomControl: <span class="hljs-literal">true</span>,
+            location: <span class="hljs-literal">true</span>,
+            &#125;,
+          &#125;,
+      )
+      <span class="hljs-keyword">var</span> optional_config =   &#123;
+        location: [<span class="hljs-number">28.61</span>, <span class="hljs-number">77.23</span>],
+        region: <span class="hljs-string">'IND'</span>,
+        height: <span class="hljs-number">300</span>,
+        &#125;;
+      <span class="hljs-keyword">this</span>.mapplsPluginObject.search(
+        document.getElementById(<span class="hljs-string">'auto'</span>),
+        optional_config,
+        <span class="hljs-keyword">this</span>.callback
+      );
+
+      &#125;
+  );
+
+  <span class="hljs-keyword">this</span>.callback = (<span class="hljs-keyword">data</span>: any) =&gt;   &#123;
+    console.log(<span class="hljs-keyword">data</span>);
+    console.log(<span class="hljs-keyword">data</span>[<span class="hljs-number">0</span>].placeName + <span class="hljs-string">", "</span> + <span class="hljs-keyword">data</span>[<span class="hljs-number">0</span>].placeAddress);
+    &#125;;</span>
+</code></pre>
+    </li>
+  </ul>
+  <p><img src="../../assets/screenshots/search.png" alt="search"></p>
+  <ul>
+    <li>Add a marker at that position using the <code>pinMarker</code> plugin. The <code>eLoc</code> of searched
+      location is passed as <code>pin</code> for the pinMarker.
+      <pre><code class="lang-typescript">   <span class="hljs-keyword">this</span>.markerObject = <span class="hljs-keyword">this</span>.mapplsPluginObject.pinMarker(  &#123;
+      map: <span class="hljs-keyword">this</span>.mapObject,
+      pin: <span class="hljs-keyword">data</span>[<span class="hljs-number">0</span>].eLoc,
+      width: <span class="hljs-number">25</span>,
+      height: <span class="hljs-number">40</span>,
+      popupHtml: <span class="hljs-keyword">data</span>[<span class="hljs-number">0</span>].placeName + <span class="hljs-string">", "</span> + <span class="hljs-keyword">data</span>[<span class="hljs-number">0</span>].placeAddress,
+      popupOptions:   &#123;
+        openPopup: <span class="hljs-literal">true</span>
+        &#125;,
+      &#125;, (<span class="hljs-keyword">data</span>: any) =&gt;   &#123;
+      <span class="hljs-keyword">this</span>.markerObject = <span class="hljs-keyword">data</span>;
+      <span class="hljs-keyword">this</span>.markerObject.fitbounds();
+      &#125;);
+</code></pre>
+      <img src="../../assets/screenshots/taj.png" alt="taj">
+    </li>
+  </ul>
+  <h3 id="how-to-get-details-of-a-place-by-its-name-">How to get details of a place by its name?</h3>
+  <ul>
+    <li>The <code>getPinDetails</code> plugin can be used to get details about any <code>eloc</code> location. The
+      <code>eLoc</code> of searched location is passed as <code>pin</code> for the getPinDetails.
+      <pre><code class="lang-typescript">  var elocObj = <span class="hljs-keyword">this</span>.mapplsPluginObject.getPinDetails(
+        &#123; pin: data[<span class="hljs-number">0</span>].eLoc   &#125;,
+      <span class="hljs-function"><span class="hljs-params">(e: any)</span> =&gt;</span>   &#123;
+        <span class="hljs-built_in">console</span>.log(e);
+        &#125;
+    );
+</code></pre>
+      <img src="../../assets/screenshots/taj.png" alt="taj">
+    </li>
+  </ul>
+  <h3 id="how-to-get-road-distance-between-two-locations-">How to get road distance between two locations?</h3>
+  <ul>
+    <li>The <code>direction</code> plugin can be used to get route and distance between two points. The start and end
+      locations are passed inside the parameter of the plugin as <code>start</code> and <code>end</code>.
+      <pre><code class="lang-typescript">  <span class="hljs-keyword">this</span>.mapObject.<span class="hljs-literal">on</span>(<span class="hljs-string">'load'</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span>   &#123;
+      var direction_option =   &#123;
+          Resource: <span class="hljs-string">'route_eta'</span>,
+          annotations: <span class="hljs-string">'nodes,congestion'</span>,
+          map: <span class="hljs-keyword">this</span>.mapObject,
+          start:   &#123; label: <span class="hljs-string">'Indira Gandhi Domestic Airport, Indira Gandhi International Airport, Thimayya Marg, New Delhi, Delhi, 110037'</span>, geoposition: <span class="hljs-string">'KW8FBK'</span>   &#125;,
+          end:   &#123; label: <span class="hljs-string">'MapmyIndia Head Office New Delhi, 237, Okhla Industrial Estate Phase 3, Near Modi Mill, New Delhi, Delhi, 110020'</span>, geoposition: <span class="hljs-string">'MMI000'</span>   &#125;,
+        &#125;;
+      <span class="hljs-keyword">this</span>.mapplsPluginObject.direction(direction_option, <span class="hljs-function"><span class="hljs-params">(e: any)</span> =&gt;</span>   &#123;
+          <span class="hljs-built_in">console</span>.log(e);
+        &#125;);
+</code></pre>
+      <img src="../../assets/screenshots/distance.png" alt="distance">
+    </li>
+  </ul>
+  <h3 id="how-to-get-nearby-places-from-a-location-of-some-specific-category-">How to get nearby places from a location
+    of
+    some specific category?</h3>
+  <ul>
+    <li>The <code>nearby</code> plugin can be used to search for nearby places around any particular location using
+      keywords like &#39;atm&#39;,&#39;food&#39; etc. The location coordinates is passed as <code>refLocation</code>
+      and keywords for searching as <code>keywords</code>
+      <pre><code class="lang-typescript">    <span class="hljs-built_in">var</span> options =   &#123;
+        <span class="hljs-attribute">divId</span>: <span class="hljs-string">'nearby_search'</span>,
+        <span class="hljs-attribute">keywords</span>: <span class="hljs-string">'atm'</span>,
+        <span class="hljs-attribute">refLocation</span>: <span class="hljs-string">'28.632735,77.219696'</span>,
+        <span class="hljs-attribute">fitbounds</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attribute">icon</span>:   &#123;
+          <span class="hljs-attribute">url</span>: <span class="hljs-string">'https://apis.mappls.com/map_v3/1.png'</span>,
+          &#125;,
+        <span class="hljs-attribute">click_callback</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">d: any</span>) </span>  &#123;
+          <span class="hljs-keyword">if</span> (d)   &#123;
+            <span class="hljs-built_in">var</span> l =
+              <span class="hljs-string">'Name: '</span> +
+              d.placeName +
+              <span class="hljs-string">'\nAddress: '</span> +
+              d.placeAddress +
+              <span class="hljs-string">'\neLoc: '</span> +
+              d.eLoc;
+            alert(l);
+            &#125;
+          &#125;,
+        &#125;;
+      <span class="hljs-keyword">this</span>.mapplsPluginObject.nearby(options, (<span class="hljs-attribute">data</span>: any) =&gt;   &#123;
+        <span class="hljs-keyword">let</span> nr = data;
+        <span class="hljs-built_in">console</span>.log(nr);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> <span class="hljs-built_in">point</span> <span class="hljs-keyword">of</span> nr.data)   &#123;
+          <span class="hljs-keyword">this</span>.marker = <span class="hljs-keyword">this</span>.mapplsPluginObject.pinMarker(  &#123;
+            <span class="hljs-attribute">map</span>: <span class="hljs-keyword">this</span>.mapObject,
+            <span class="hljs-attribute">pin</span>: <span class="hljs-built_in">point</span>.eLoc,
+            <span class="hljs-attribute">popupHtml</span>: <span class="hljs-built_in">point</span>.placeName + <span class="hljs-string">", "</span> + <span class="hljs-built_in">point</span>.placeAddress,
+            &#125;)
+          &#125;
+        &#125;);
+</code></pre>
+    </li>
+    <li>Add a div in html template and pass its id as <code>divId</code> to show the nearby locations.
+      <pre><code class="lang-html">  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">id</span>=<span class="hljs-string">"nearby_search"</span>&gt;&lt;/<span class="hljs-keyword">div</span>&gt;
+</code></pre>
+      <img src="../../assets/screenshots/nearby_search.png" alt="nearby_search">
+    </li>
+  </ul>
+</div>

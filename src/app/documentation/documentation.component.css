@@ -1,0 +1,60 @@
+#map {
+    scroll-behavior: smooth;
+}
+
+a {
+    display: inline-block;
+    margin-right: 15px;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding: 10px 15px;
+
+}
+
+blockquote {
+    background: #E6F2E6;
+    border-left: 3px solid #408040;
+    font-style: italic;
+    padding: 10px 15px;
+    margin-left: 2px;
+}
+
+pre {
+    background: #E0F0FF;
+    border-left: 5px solid #55AAFF;
+    padding: 10px 15px;
+    margin-left: 2px;
+}
+
+code {
+    background: #E0F0FF;
+    font-family: JetBrains Mono NL, Courier New, Monospaced;
+    font-size: 0.9em;
+}
+
+table {
+    border-spacing: 0px;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+th,
+td {
+    border-left: 1px solid gray;
+    border-top: 1px solid gray;
+}
+
+th {
+    background: #D4D4D4;
+    font-weight: 600;
+}

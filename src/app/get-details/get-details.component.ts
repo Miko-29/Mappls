@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { mappls, mappls_plugin } from 'mappls-web-maps';
 
 @Component({
-  selector: 'app-search',
+  selector: 'app-get-details',
   standalone: true,
   imports: [],
-  templateUrl: './search.component.html',
-  styleUrl: './search.component.css'
+  templateUrl: './get-details.component.html',
+  styleUrl: './get-details.component.css'
 })
-export class SearchComponent {
+export class GetDetailsComponent {
   mapObject: any;
   mapplsClassObject: any = new mappls()
   mapplsPluginObject: any = new mappls_plugin()
@@ -57,6 +57,12 @@ export class SearchComponent {
       if (this.markerObject) {
         this.markerObject.remove();
       }
+      var elocObj = this.mapplsPluginObject.getPinDetails(
+        { pin: data[0].eLoc },
+        (e: any) => {
+          console.log(e);
+        }
+      );
       this.markerObject = this.mapplsPluginObject.pinMarker({
         map: this.mapObject,
         // fitbounds: true,
@@ -72,6 +78,7 @@ export class SearchComponent {
         this.markerObject = data;
         this.markerObject.fitbounds();
       });
+      
       // this.markerObject.fitbounds();
     };
   }

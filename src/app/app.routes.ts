@@ -6,6 +6,8 @@ import { PolygonComponent } from './polygon/polygon.component';
 import { SearchComponent } from './search/search.component';
 import { CustomMarkerComponent } from './custom-marker/custom-marker.component';
 import { DistanceComponent } from './distance/distance.component';
+import { NearbySearchComponent } from './nearby-search/nearby-search.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 
 export const routes: Routes = [
     {path:'',redirectTo:'marker',pathMatch:'full'},
@@ -16,4 +18,6 @@ export const routes: Routes = [
     {path:'search',component:SearchComponent},
     {path:'custom-marker',component:CustomMarkerComponent},  
     {path:'distance',component:DistanceComponent},  
+    {path:'nearby-search',component:NearbySearchComponent},
+    {path:'documentation',component:DocumentationComponent},
 ];

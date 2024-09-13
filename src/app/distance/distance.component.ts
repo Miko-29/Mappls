@@ -30,7 +30,7 @@ export class DistanceComponent {
     };
 
     this.mapplsClassObject.initialize(
-      '4056949d-ea40-402f-a6d6-e533922e6d9a',
+      '26015c82-2358-4290-8524-308641204004',
       loadObject,
       () => {
         this.mapObject = this.mapplsClassObject.Map({

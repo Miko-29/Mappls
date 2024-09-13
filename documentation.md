@@ -11,6 +11,10 @@
     - [How to plot a polyline on Mappls Map?](#how-to-plot-a-polyline-on-mappls-map)
     - [How to plot a polyline with custom color on Mappls Map?](#how-to-plot-a-polyline-with-custom-color-on-mappls-map)
 - [Section 3](#section-3)
+    - [How to get human readable address information at a location/coordinate?](#how-to-get-human-readable-address-information-at-a-locationcoordinate)
+    - [How to get details of a place by its name?](#how-to-get-details-of-a-place-by-its-name)
+    - [How to get road distance between two locations?](#how-to-get-road-distance-between-two-locations)
+    - [How to get nearby places from a location of some specific category?](#how-to-get-nearby-places-from-a-location-of-some-specific-category)
 
 ## Section 1: 
 
@@ -244,6 +248,7 @@
        });
     ```
 ![airports](./screenshots/airports.png)
+![cluster](./screenshots/cluster.png)
 
 ### How to plot a polyline on Mappls Map?
 * Declare a variable containing polyline data.
@@ -398,7 +403,146 @@
 ## Section 3: 
 
 ### How to get human readable address information at a location/coordinate?
+* Before using the Plugin in the your solution, please ensure that the related access is enabled in the Mappls Console, in the same project you set up for the Maps SDK.
+Copy and paste the generated access token generated using Token Generation API.
+The access token is a valid by default for 24 hours from the time of generation.
+
+* Add an input tag in the html template. Define an id for it to provide it to the search plugin as parameter.
+    ```html
+    <input type="text" 
+    id="auto" 
+    name="auto" 
+    placeholder="Search places or eLoc's..." 
+    required="" 
+    spellcheck="false" />
+    ```
+
+* Add `search` plugin to search about a location. The address of the location is provided as `data[0].placeName` and `data[0].placeAddress`.
+    ```typescript
+    callback: any;
+    data: any;
+
+    this.mapplsClassObject.initialize(
+      '<access-token>',
+      loadObject,
+      () => {
+        this.mapObject = this.mapplsClassObject.Map(
+          {
+            id: 'map',
+            properties: {
+              zoomControl: true,
+              location: true,
+            },
+          },
+        )
+        var optional_config = {
+          location: [28.61, 77.23],
+          region: 'IND',
+          height: 300,
+        };
+        this.mapplsPluginObject.search(
+          document.getElementById('auto'),
+          optional_config,
+          this.callback
+        );
+
+      }
+    );
+
+    this.callback = (data: any) => {
+      console.log(data);
+      console.log(data[0].placeName + ", " + data[0].placeAddress);
+    };
+    ```
+
+![search](./screenshots/search.png)
+
+* Add a marker at that position using the `pinMarker` plugin. The `eLoc` of searched location is passed as `pin` for the pinMarker.
+    ```typescript
+     this.markerObject = this.mapplsPluginObject.pinMarker({
+        map: this.mapObject,
+        pin: data[0].eLoc,
+        width: 25,
+        height: 40,
+        popupHtml: data[0].placeName + ", " + data[0].placeAddress,
+        popupOptions: {
+          openPopup: true
+        },
+      }, (data: any) => {
+        this.markerObject = data;
+        this.markerObject.fitbounds();
+      });
+      ```
+![taj](./screenshots/taj.png)
+
 ### How to get details of a place by its name?
+* The `getPinDetails` plugin can be used to get details about any `eloc` location. The `eLoc` of searched location is passed as `pin` for the getPinDetails.
+    ```typescript
+    var elocObj = this.mapplsPluginObject.getPinDetails(
+        { pin: data[0].eLoc },
+        (e: any) => {
+          console.log(e);
+        }
+      );
+    ```
+![taj](./screenshots/taj.png)
+
 ### How to get road distance between two locations?
+* The `direction` plugin can be used to get route and distance between two points. The start and end locations are passed inside the parameter of the plugin as `start` and `end`.
+    ```typescript
+    this.mapObject.on('load', () => {
+        var direction_option = {
+            Resource: 'route_eta',
+            annotations: 'nodes,congestion',
+            map: this.mapObject,
+            start: { label: 'Indira Gandhi Domestic Airport, Indira Gandhi International Airport, Thimayya Marg, New Delhi, Delhi, 110037', geoposition: 'KW8FBK' },
+            end: { label: 'MapmyIndia Head Office New Delhi, 237, Okhla Industrial Estate Phase 3, Near Modi Mill, New Delhi, Delhi, 110020', geoposition: 'MMI000' },
+        };
+        this.mapplsPluginObject.direction(direction_option, (e: any) => {
+            console.log(e);
+        });
+    ```
+![distance](./screenshots/distance.png)
+
 ### How to get nearby places from a location of some specific category?
-### How to get an image of a map with markers?
+* The `nearby` plugin can be used to search for nearby places around any particular location using keywords like 'atm','food' etc. The location coordinates is passed as `refLocation` and keywords for searching as `keywords`
+    ```typescript
+      var options = {
+          divId: 'nearby_search',
+          keywords: 'atm',
+          refLocation: '28.632735,77.219696',
+          fitbounds: true,
+          icon: {
+            url: 'https://apis.mappls.com/map_v3/1.png',
+          },
+          click_callback: function (d: any) {
+            if (d) {
+              var l =
+                'Name: ' +
+                d.placeName +
+                '\nAddress: ' +
+                d.placeAddress +
+                '\neLoc: ' +
+                d.eLoc;
+              alert(l);
+            }
+          },
+        };
+        this.mapplsPluginObject.nearby(options, (data: any) => {
+          let nr = data;
+          console.log(nr);
+          for (let point of nr.data) {
+            this.marker = this.mapplsPluginObject.pinMarker({
+              map: this.mapObject,
+              pin: point.eLoc,
+              popupHtml: point.placeName + ", " + point.placeAddress,
+            })
+          }
+        });
+    ```
+* Add a div in html template and pass its id as `divId` to show the nearby locations.
+    ```html
+    <div id="nearby_search"></div>
+    ```
+![nearby_search](./screenshots/nearby_search.png)
+

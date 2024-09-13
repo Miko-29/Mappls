@@ -1,7 +1,6 @@
 import { PathLocationStrategy } from '@angular/common';
 import { Component } from '@angular/core';
 import { mappls, mappls_plugin } from 'mappls-web-maps';
-import '../constant.ts'
 
 @Component({
   selector: 'app-polygon',
@@ -3104,7 +3103,6 @@ export class PolygonComponent {
   mapplsClassObject: any = new mappls()
   mapplsPluginObject: any = new mappls_plugin()
   polygonObject: any;
-  token = token;
 
   ngOnInit() {
     const loadObject = {
@@ -3116,7 +3114,7 @@ export class PolygonComponent {
     };
 
     this.mapplsClassObject.initialize(
-      this.token, loadObject,
+      '26015c82-2358-4290-8524-308641204004', loadObject,
       () => {
         this.mapObject = this.mapplsClassObject.Map(
           {

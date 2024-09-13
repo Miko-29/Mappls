@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { mappls, mappls_plugin } from 'mappls-web-maps';
-import '../constant.ts'
 
 @Component({
   selector: 'app-polyline',
@@ -34,7 +33,6 @@ export class PolylineComponent {
   polylineObject: any;
   markerObject1: any;
   markerObject2: any;
-  token = token;
 
   ngOnInit() {
     const loadObject = {
@@ -46,7 +44,7 @@ export class PolylineComponent {
     };
 
     this.mapplsClassObject.initialize(
-      this.token, loadObject,
+      '26015c82-2358-4290-8524-308641204004', loadObject,
       () => {
         this.mapObject = this.mapplsClassObject.Map(
           {
